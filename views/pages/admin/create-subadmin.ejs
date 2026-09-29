@@ -1,0 +1,351 @@
+<%- include("../../partials/header") %>
+<%- include("../../partials/navbar") %>
+
+
+<div class="container py-4">
+
+    <!-- ================================= -->
+    <!-- Page Header -->
+    <!-- ================================= -->
+
+    <div class="mb-4">
+
+        <a href="/admin/members"
+           class="text-decoration-none">
+
+            <i class="bi bi-arrow-left"></i>
+            Back to Admin Members
+
+        </a>
+
+        <h2 class="fw-bold mt-3 mb-1">
+            Create Sub Admin
+        </h2>
+
+        <p class="text-muted">
+            Create a new admin account with selected permissions.
+        </p>
+
+    </div>
+
+
+    <!-- ================================= -->
+    <!-- Error -->
+    <!-- ================================= -->
+
+    <% if (typeof error !== "undefined" && error) { %>
+
+        <div class="alert alert-danger">
+
+            <i class="bi bi-exclamation-circle"></i>
+
+            <%= error %>
+
+        </div>
+
+    <% } %>
+
+
+    <!-- ================================= -->
+    <!-- Form -->
+    <!-- ================================= -->
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-4">
+
+            <form
+                action="/admin/members/create"
+                method="POST"
+            >
+
+                <!-- ========================= -->
+                <!-- Name -->
+                <!-- ========================= -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-semibold">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        placeholder="Enter full name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ========================= -->
+                <!-- Email -->
+                <!-- ========================= -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-semibold">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        placeholder="Enter email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ========================= -->
+                <!-- Phone -->
+                <!-- ========================= -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-semibold">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        name="phone"
+                        class="form-control"
+                        placeholder="Enter phone number"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ========================= -->
+                <!-- Password -->
+                <!-- ========================= -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-semibold">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Enter password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ========================= -->
+                <!-- Confirm Password -->
+                <!-- ========================= -->
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-semibold">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        name="confirmPassword"
+                        class="form-control"
+                        placeholder="Confirm password"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- ========================= -->
+                <!-- Permissions -->
+                <!-- ========================= -->
+
+                <h5 class="fw-bold mb-3">
+                    Permissions
+                </h5>
+
+
+                <div class="row g-3 mb-4">
+
+
+                    <!-- Dashboard -->
+
+                    <div class="col-md-6">
+
+                        <div class="form-check border rounded p-3">
+
+                            <input
+                                class="form-check-input ms-0 me-2"
+                                type="checkbox"
+                                name="permissions"
+                                value="dashboard"
+                                id="permissionDashboard"
+                            >
+
+                            <label
+                                class="form-check-label"
+                                for="permissionDashboard"
+                            >
+
+                                <strong>
+                                    Dashboard
+                                </strong>
+
+                                <div class="small text-muted">
+                                    View admin dashboard
+                                </div>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Products -->
+
+                    <div class="col-md-6">
+
+                        <div class="form-check border rounded p-3">
+
+                            <input
+                                class="form-check-input ms-0 me-2"
+                                type="checkbox"
+                                name="permissions"
+                                value="products"
+                                id="permissionProducts"
+                            >
+
+                            <label
+                                class="form-check-label"
+                                for="permissionProducts"
+                            >
+
+                                <strong>
+                                    Products
+                                </strong>
+
+                                <div class="small text-muted">
+                                    Manage products
+                                </div>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Orders -->
+
+                    <div class="col-md-6">
+
+                        <div class="form-check border rounded p-3">
+
+                            <input
+                                class="form-check-input ms-0 me-2"
+                                type="checkbox"
+                                name="permissions"
+                                value="orders"
+                                id="permissionOrders"
+                            >
+
+                            <label
+                                class="form-check-label"
+                                for="permissionOrders"
+                            >
+
+                                <strong>
+                                    Orders
+                                </strong>
+
+                                <div class="small text-muted">
+                                    Manage customer orders
+                                </div>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Customers -->
+
+                    <div class="col-md-6">
+
+                        <div class="form-check border rounded p-3">
+
+                            <input
+                                class="form-check-input ms-0 me-2"
+                                type="checkbox"
+                                name="permissions"
+                                value="customers"
+                                id="permissionCustomers"
+                            >
+
+                            <label
+                                class="form-check-label"
+                                for="permissionCustomers"
+                            >
+
+                                <strong>
+                                    Customers
+                                </strong>
+
+                                <div class="small text-muted">
+                                    Manage customer accounts
+                                </div>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- ========================= -->
+                <!-- Submit -->
+                <!-- ========================= -->
+
+                <div class="d-flex gap-2">
+
+                    <a
+                        href="/admin/members"
+                        class="btn btn-light"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+
+                        <i class="bi bi-person-plus"></i>
+                        Create Sub Admin
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<%- include("../../partials/footer") %>

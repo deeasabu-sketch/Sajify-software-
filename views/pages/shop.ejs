@@ -1,0 +1,307 @@
+<%- include("../partials/header") %>
+    <%- include("../partials/navbar") %>
+
+        <div class="container py-5">
+
+            <!-- ===============================
+         Shop Header
+    ================================ -->
+            <div class="text-center mb-5">
+
+                <h1 class="fw-bold">
+                    Shop
+                </h1>
+
+                <p class="text-muted">
+                    Explore our latest products
+                </p>
+
+            </div>
+
+
+            <!-- ===============================
+         Search
+    ================================ -->
+            <form action="/shop" method="GET" class="mb-4">
+
+                <div class="input-group">
+
+                    <input type="text" name="search" class="form-control" placeholder="Search products..."
+                        value="<%= search || '' %>">
+
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search"></i>
+                        Search
+                    </button>
+
+                </div>
+
+            </form>
+            <!-- ===============================
+Category Filter
+================================ -->
+            <div class="mb-4">
+
+                <div class="d-flex flex-wrap gap-2">
+
+                    <a href="/shop?search=<%= encodeURIComponent(search || '') %>"
+                        class="btn <%= !category ? 'btn-primary' : 'btn-outline-primary' %>">
+                        All
+                    </a>
+
+
+                    <a href="/shop?category=Electronics&search=<%= encodeURIComponent(search || '') %>"
+                        class="btn <%= category === 'Electronics' ? 'btn-primary' : 'btn-outline-primary' %>">
+                        Electronics
+                    </a>
+
+
+                    <a href="/shop?category=Fashion&search=<%= encodeURIComponent(search || '') %>"
+                        class="btn <%= category === 'Fashion' ? 'btn-primary' : 'btn-outline-primary' %>">
+                        Fashion
+                    </a>
+
+
+                    <a href="/shop?category=Cosmetics&search=<%= encodeURIComponent(search || '') %>"
+                        class="btn <%= category === 'Cosmetics' ? 'btn-primary' : 'btn-outline-primary' %>">
+                        Cosmetics
+                    </a>
+
+
+                    <a href="/shop?category=Jewellery&search=<%= encodeURIComponent(search || '') %>"
+                        class="btn <%= category === 'Jewellery' ? 'btn-primary' : 'btn-outline-primary' %>">
+                        Jewellery
+                    </a>
+
+
+                    <a href="/shop?category=Food&search=<%= encodeURIComponent(search || '') %>"
+                        class="btn <%= category === 'Food' ? 'btn-primary' : 'btn-outline-primary' %>">
+                        Food
+                    </a>
+
+                </div>
+
+            </div>
+
+            <!-- ===============================
+Sorting
+================================ -->
+            <div class="row mb-4">
+
+                <div class="col-md-4 ms-auto">
+
+                    <label class="form-label fw-semibold">
+                        Sort Products
+                    </label>
+
+                    <form action="/shop" method="GET">
+
+                        <!-- Keep Search -->
+                        <input type="hidden" name="search" value="<%= search || '' %>">
+
+                        <!-- Keep Category -->
+                        <input type="hidden" name="category" value="<%= category || '' %>">
+
+                        <select name="sort" class="form-select" onchange="this.form.submit()">
+
+                            <option value="newest" <%=sort==="newest" ? "selected" : "" %>
+                                >
+                                Newest
+                            </option>
+
+                            <option value="price-low" <%=sort==="price-low" ? "selected" : "" %>
+                                >
+                                Price: Low to High
+                            </option>
+
+                            <option value="price-high" <%=sort==="price-high" ? "selected" : "" %>
+                                >
+                                Price: High to Low
+                            </option>
+
+                            <option value="name-az" <%=sort==="name-az" ? "selected" : "" %>
+                                >
+                                Name: A to Z
+                            </option>
+
+                        </select>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- ===============================
+         Product Count
+    ================================ -->
+            <div class="mb-4">
+
+                <span class="text-muted">
+                    <%= totalProducts %> products found
+                </span>
+
+            </div>
+
+
+            <!-- ===============================
+         Products
+    ================================ -->
+            <div class="row g-4">
+
+                <% if (products.length> 0) { %>
+
+                    <% products.forEach(product=> { %>
+
+                        <div class="col-6 col-md-4 col-lg-3">
+
+                            <div class="card h-100 shadow-sm position-relative product-card">
+
+                                <!-- Product Image -->
+                                <a href="/product/<%= product._id %>" class="text-decoration-none">
+
+
+                                    <div class="product-image-wrapper">
+
+                                        <img src="<%= product.image %>" class="img-fluid product-hover-image"
+                                            alt="<%= product.name %>">
+
+                                    </div>
+
+
+
+                                </a>
+
+
+                                <div class="card-body d-flex flex-column">
+
+                                    <h5 class="card-title">
+                                        <%= product.name %>
+                                    </h5>
+
+                                    <% if (product.brand) { %>
+
+                                        <small class="text-muted mb-2">
+                                            <%= product.brand %>
+                                        </small>
+
+                                        <% } %>
+
+                                            <h5 class="fw-bold mb-3">
+                                                ৳ <%= product.price %>
+                                            </h5>
+
+
+                                            <div class="mt-auto d-grid gap-2">
+
+                                                <a href="/product/<%= product._id %>" class="btn btn-outline-primary">
+                                                    View Details
+                                                </a>
+
+                                                <form action="/cart/add/<%= product._id %>" method="POST">
+
+                                                    <button type="submit" class="btn btn-primary w-100">
+                                                        <i class="bi bi-cart-plus"></i>
+                                                        Add to Cart
+                                                    </button>
+
+                                                </form>
+
+                                            </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <% }) %>
+
+                            <% } else { %>
+
+                                <div class="col-12">
+
+                                    <div class="text-center py-5">
+
+                                        <i class="bi bi-search fs-1 text-muted"></i>
+
+                                        <h4 class="mt-3">
+                                            No products found
+                                        </h4>
+
+                                        <p class="text-muted">
+                                            Try searching with another keyword.
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                                <% } %>
+
+            </div>
+
+
+            <!-- ===============================
+         Pagination
+    ================================ -->
+            <% if (totalPages> 1) { %>
+
+                <nav class="mt-5">
+
+                    <ul class="pagination justify-content-center">
+
+                        <!-- Previous -->
+                        <% if (currentPage> 1) { %>
+
+                            <li class="page-item">
+
+                                <a class="page-link"
+                                    href="/shop?page=<%= currentPage - 1 %>&search=<%= encodeURIComponent(search || '') %>&category=<%= encodeURIComponent(category || '') %>&sort=<%= encodeURIComponent(sort || 'newest') %>">
+                                    Previous
+                                </a>
+
+                            </li>
+
+                            <% } %>
+
+
+                                <!-- Page Numbers -->
+                                <% for ( let page=1; page <=totalPages; page++ ) { %>
+
+                                    <li class="page-item <%= page === currentPage ? 'active' : '' %>">
+
+                                        <a class="page-link"
+                                            href="/shop?page=<%= page %>&search=<%= encodeURIComponent(search || '') %>&category=<%= encodeURIComponent(category || '') %>&sort=<%= encodeURIComponent(sort || 'newest') %>">
+                                            <%= page %>
+                                        </a>
+
+                                    </li>
+
+                                    <% } %>
+
+
+                                        <!-- Next -->
+                                        <% if (currentPage < totalPages) { %>
+
+                                            <li class="page-item">
+
+                                                <a class="page-link"
+                                                    href="/shop?page=<%= currentPage + 1 %>&search=<%= encodeURIComponent(search || '') %>&category=<%= encodeURIComponent(category || '') %>&sort=<%= encodeURIComponent(sort || 'newest') %>">
+                                                    Next
+                                                </a>
+
+                                            </li>
+
+                                            <% } %>
+
+                    </ul>
+
+                </nav>
+
+                <% } %>
+
+        </div>
+
+        <%- include("../partials/footer") %>

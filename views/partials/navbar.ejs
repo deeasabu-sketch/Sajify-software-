@@ -1,0 +1,264 @@
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+    <div class="container">
+
+        <!-- ===============================
+             Brand
+        ================================ -->
+        <a class="navbar-brand sajify-brand" href="/">
+            <i class="bi bi-bag-heart-fill"></i>
+            <span>Sajify</span>
+        </a>
+
+        <!-- ===============================
+             Mobile Toggle
+        ================================ -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- ===============================
+             Navbar Content
+        ================================ -->
+        <div class="collapse navbar-collapse" id="mainNavbar">
+
+            <!-- ===============================
+                 Main Navigation
+            ================================ -->
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- Home -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        <i class="bi bi-house"></i>
+                        Home
+                    </a>
+                </li>
+
+                <!-- Shop -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/shop">
+                        <i class="bi bi-shop"></i>
+                        Shop
+                    </a>
+                </li>
+
+                <!-- About -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/about">
+                        <i class="bi bi-info-circle"></i>
+                        About
+                    </a>
+                </li>
+
+                <!-- Contact -->
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">
+                        <i class="bi bi-envelope"></i>
+                        Contact
+                    </a>
+                </li>
+
+            </ul>
+
+
+            <!-- ===============================
+                 Right Side Navigation
+            ================================ -->
+            <ul class="navbar-nav align-items-lg-center gap-lg-2">
+
+                <!-- =================================================
+                     Customer / Guest Section
+                ================================================== -->
+
+                <% if (!currentUser || currentUser.role==="user" ) { %>
+
+                    <!-- Buy Now -->
+                    <li class="nav-item">
+                        <a href="/shop" class="btn btn-primary px-3">
+                            <i class="bi bi-bag-check"></i>
+                            Buy Now
+                        </a>
+                    </li>
+
+                    <!-- Cart -->
+                    <li class="nav-item">
+                        <a href="/cart" class="cart-nav-link">
+                             <i class="bi bi-cart3"></i>
+                            Cart
+                        </a>
+                    </li>
+
+                    <% } %>
+
+
+                        <!-- =================================================
+                     Logged-in Customer
+                ================================================== -->
+
+                        <% if (currentUser && currentUser.role==="user" ) { %>
+
+                            <!-- Dashboard -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="/dashboard">
+                                    <i class="bi bi-speedometer2"></i>
+                                    Dashboard
+                                </a>
+                            </li>
+
+                            <!-- Profile -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="/profile">
+                                    <i class="bi bi-person-circle"></i>
+                                    Profile
+                                </a>
+                            </li>
+
+                            <!-- Logout -->
+                            <li class="nav-item">
+                                <a class="nav-link text-danger" href="/logout">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    Logout
+                                </a>
+                            </li>
+
+                            <% } %>
+
+
+                                <!-- =================================================
+                     Guest Login
+                ================================================== -->
+
+                                <% if (!currentUser) { %>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="/login">
+                                            <i class="bi bi-box-arrow-in-right"></i>
+                                            Login
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="btn btn-outline-primary px-3" href="/register">
+                                            Register
+                                        </a>
+                                    </li>
+
+                                    <% } %>
+
+
+                                        <!-- =================================================
+                     ADMIN / SUB-ADMIN SECTION
+                ================================================== -->
+
+                                        <% if ( currentUser && (currentUser.role==="admin" ||
+                                            currentUser.role==="subadmin" ) ) { %>
+
+                                            <!-- Admin Dashboard -->
+                                            <% if ( currentUser.role==="admin" && currentUser.isMainAdmin===true ) { %>
+
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="/admin/dashboard">
+                                                        <i class="bi bi-speedometer2"></i>
+                                                        Admin Dashboard
+                                                    </a>
+                                                </li>
+
+                                                <% } else if ( currentUser.role==="subadmin" &&
+                                                    currentUser.permissions?.includes("dashboard") ) { %>
+
+                                                    <li class="nav-item">
+                                                        <a class="nav-link" href="/admin/dashboard">
+                                                            <i class="bi bi-speedometer2"></i>
+                                                            Dashboard
+                                                        </a>
+                                                    </li>
+
+                                                    <% } %>
+
+
+                                                        <!-- Products -->
+                                                        <% if ( currentUser.role==="admin" &&
+                                                            currentUser.isMainAdmin===true ) { %>
+
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" href="/admin/products">
+                                                                    <i class="bi bi-box-seam"></i>
+                                                                    Products
+                                                                </a>
+                                                            </li>
+
+                                                            <% } else if ( currentUser.role==="subadmin" &&
+                                                                currentUser.permissions?.includes("products") ) { %>
+
+                                                                <li class="nav-item">
+                                                                    <a class="nav-link" href="/admin/products">
+                                                                        <i class="bi bi-box-seam"></i>
+                                                                        Products
+                                                                    </a>
+                                                                </li>
+
+                                                                <% } %>
+
+
+                                                                    <!-- Orders -->
+                                                                    <% if ( currentUser.role==="admin" &&
+                                                                        currentUser.isMainAdmin===true ) { %>
+
+                                                                        <li class="nav-item">
+                                                                            <a class="nav-link" href="/admin/orders">
+                                                                                <i class="bi bi-cart-check"></i>
+                                                                                Orders
+                                                                            </a>
+                                                                        </li>
+
+                                                                        <% } else if ( currentUser.role==="subadmin" &&
+                                                                            currentUser.permissions?.includes("orders")
+                                                                            ) { %>
+
+                                                                            <li class="nav-item">
+                                                                                <a class="nav-link"
+                                                                                    href="/admin/orders">
+                                                                                    <i class="bi bi-cart-check"></i>
+                                                                                    Orders
+                                                                                </a>
+                                                                            </li>
+
+                                                                            <% } %>
+
+
+                                                                                <!-- Admin Members
+                         Main Admin ONLY
+                    -->
+                                                                                <% if ( currentUser.role==="admin" &&
+                                                                                    currentUser.isMainAdmin===true ) {
+                                                                                    %>
+
+                                                                                    <li class="nav-item">
+                                                                                        <a class="nav-link"
+                                                                                            href="/admin/members">
+                                                                                            <i class="bi bi-people"></i>
+                                                                                            Admin Members
+                                                                                        </a>
+                                                                                    </li>
+
+                                                                                    <% } %>
+
+
+                                                                                        <!-- Admin Logout -->
+                                                                                        <li class="nav-item">
+                                                                                            <a class="nav-link text-danger"
+                                                                                                href="/logout">
+                                                                                                <i
+                                                                                                    class="bi bi-box-arrow-right"></i>
+                                                                                                Logout
+                                                                                            </a>
+                                                                                        </li>
+
+                                                                                        <% } %>
+
+            </ul>
+
+        </div>
+    </div>
+</nav>

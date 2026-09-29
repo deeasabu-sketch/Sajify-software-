@@ -1,0 +1,73 @@
+<%- include("../partials/header") %>
+    <%- include("../partials/navbar") %>
+
+        <div class="container mt-5">
+
+            <div class="row">
+
+                <div class="col-lg-3">
+                    <%- include("../partials/dashboardSidebar") %>
+                </div>
+
+                <div class="col-lg-9">
+
+                    <div class="card shadow-sm">
+
+                        <div class="card-header">
+                            <h3>My Profile</h3>
+                        </div>
+
+                        <div class="card-body">
+
+                            <table class="table">
+
+                                <tr>
+                                    <th>Name</th>
+                                    <td>
+                                        <%= user.name %>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Email</th>
+                                    <td>
+                                        <%= user.email %>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Phone</th>
+                                    <td>
+                                        <%= user.phone || "Not Added" %>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <th>Joined</th>
+                                    <td>
+                                        <%= user.createdAt.toDateString() %>
+                                    </td>
+                                </tr>
+
+                            </table>
+
+                            <a href="/profile/edit" class="btn btn-primary">
+                                Edit Profile
+                            </a>
+                            <a href="/profile/change-password" class="btn btn-warning ms-2">
+
+                                Change Password
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <%- include("../partials/footer") %>

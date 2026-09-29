@@ -1,0 +1,304 @@
+<%- include("../../partials/header") %>
+<%- include("../../partials/navbar") %>
+
+<div class="container py-4">
+
+    <div class="mb-4">
+
+        <a href="/admin/members"
+           class="text-decoration-none">
+
+            <i class="bi bi-arrow-left"></i>
+            Back to Admin Members
+
+        </a>
+
+        <h2 class="fw-bold mt-3 mb-1">
+            Edit Sub Admin
+        </h2>
+
+        <p class="text-muted">
+            Update Sub Admin information and permissions.
+        </p>
+
+    </div>
+
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-body p-4">
+
+            <form
+                action="/admin/members/edit/<%= subAdmin._id %>"
+                method="POST"
+            >
+
+                <!-- Name -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-semibold">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        class="form-control"
+                        value="<%= subAdmin.name %>"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Email -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-semibold">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        class="form-control"
+                        value="<%= subAdmin.email %>"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Phone -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-semibold">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        name="phone"
+                        class="form-control"
+                        value="<%= subAdmin.phone %>"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- New Password -->
+
+                <div class="mb-3">
+
+                    <label class="form-label fw-semibold">
+                        New Password
+                    </label>
+
+                    <input
+                        type="password"
+                        name="password"
+                        class="form-control"
+                        placeholder="Leave blank to keep current password"
+                    >
+
+                </div>
+
+
+                <!-- Confirm Password -->
+
+                <div class="mb-4">
+
+                    <label class="form-label fw-semibold">
+                        Confirm New Password
+                    </label>
+
+                    <input
+                        type="password"
+                        name="confirmPassword"
+                        class="form-control"
+                        placeholder="Leave blank to keep current password"
+                    >
+
+                </div>
+
+
+                <!-- Permissions -->
+
+                <h5 class="fw-bold mb-3">
+                    Permissions
+                </h5>
+
+
+                <div class="row g-3 mb-4">
+
+
+                    <!-- Dashboard -->
+
+                    <div class="col-md-6">
+
+                        <div class="form-check border rounded p-3">
+
+                            <input
+                                class="form-check-input ms-0 me-2"
+                                type="checkbox"
+                                name="permissions"
+                                value="dashboard"
+                                id="editDashboard"
+                                <%= subAdmin.permissions.includes("dashboard")
+                                    ? "checked"
+                                    : "" %>
+                            >
+
+                            <label
+                                class="form-check-label"
+                                for="editDashboard"
+                            >
+
+                                <strong>
+                                    Dashboard
+                                </strong>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Products -->
+
+                    <div class="col-md-6">
+
+                        <div class="form-check border rounded p-3">
+
+                            <input
+                                class="form-check-input ms-0 me-2"
+                                type="checkbox"
+                                name="permissions"
+                                value="products"
+                                id="editProducts"
+                                <%= subAdmin.permissions.includes("products")
+                                    ? "checked"
+                                    : "" %>
+                            >
+
+                            <label
+                                class="form-check-label"
+                                for="editProducts"
+                            >
+
+                                <strong>
+                                    Products
+                                </strong>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Orders -->
+
+                    <div class="col-md-6">
+
+                        <div class="form-check border rounded p-3">
+
+                            <input
+                                class="form-check-input ms-0 me-2"
+                                type="checkbox"
+                                name="permissions"
+                                value="orders"
+                                id="editOrders"
+                                <%= subAdmin.permissions.includes("orders")
+                                    ? "checked"
+                                    : "" %>
+                            >
+
+                            <label
+                                class="form-check-label"
+                                for="editOrders"
+                            >
+
+                                <strong>
+                                    Orders
+                                </strong>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Customers -->
+
+                    <div class="col-md-6">
+
+                        <div class="form-check border rounded p-3">
+
+                            <input
+                                class="form-check-input ms-0 me-2"
+                                type="checkbox"
+                                name="permissions"
+                                value="customers"
+                                id="editCustomers"
+                                <%= subAdmin.permissions.includes("customers")
+                                    ? "checked"
+                                    : "" %>
+                            >
+
+                            <label
+                                class="form-check-label"
+                                for="editCustomers"
+                            >
+
+                                <strong>
+                                    Customers
+                                </strong>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="d-flex gap-2">
+
+                    <a
+                        href="/admin/members"
+                        class="btn btn-light"
+                    >
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                    >
+
+                        <i class="bi bi-check-circle"></i>
+                        Update Sub Admin
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+<%- include("../../partials/footer") %>

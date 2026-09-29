@@ -1,0 +1,50 @@
+
+       
+        <%- include("../partials/header") %>
+            <%- include("../partials/navbar") %>
+
+                <div class="container mt-5">
+
+                    <div class="row">
+
+                        <div class="col-lg-3">
+
+                            <%- include("../partials/dashboardSidebar") %>
+
+                        </div>
+
+                        <div class="col-lg-9">
+
+                            <div class="card shadow-sm">
+
+                                <div class="card-body">
+
+                                    <h3>
+                                        Welcome,
+                                        <%= currentUser.name %>
+                                    </h3>
+
+                                    <hr>
+
+                                    <p>
+                                        Email :
+                                        <%= currentUser.email %>
+                                    </p>
+
+                                    <p>
+                                        Sajify User Dashboard
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <%- include("../partials/footer") %>
+
+                    
